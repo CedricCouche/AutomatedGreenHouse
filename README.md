@@ -1,6 +1,6 @@
 # AutomatedGreenHouse
 
-Automated Green House Monitoring system
+Automated Green House system
 
 
 ## Structure of the project
@@ -13,11 +13,22 @@ There are different modules
 
 ## Commponents used
 
+- BMP280 :
+    - Pressure sensor from 300 to 1 100 hPa  
+    - Temperature measurement for more accurate results from -40 to + 85 °C
+    - [Sensor technical sheet on manufacturer website](https://www.bosch-sensortec.com/products/environmental-sensors/pressure-sensors/bmp280/)
 - SCD30 :
     - NDIR technology for accurate CO2 readings from 400 to 10,000 ppm
     - Measure temperature and relative humidity for more accurate measure
     - Local altitude compensation in the setup function for more accurate measure
     - [Link to the manufacturer website](https://sensirion.com/products/catalog/SCD30)
+- DS3231 GT584:
+    - Give accurate date & time (secondes, minutes, hours) and date (day, month, year, day of the week)
+    - Leap-Year Compensation Valid Up to 2100
+    - Crystal oscillator is temperature compensated (TCXO) for more accurate measures
+    - Battery is a common CR2032
+    - [Link to the DS3231 Data Sheet](https://www.analog.com/media/en/technical-documentation/data-sheets/ds3231.pdf)
+- BH1750 (to come)
 - ESP32-C6-DevKit C1
     - System on a Chip (SoC)
     - [Link to the manufacturer website](https://www.espressif.com/en/products/socs/esp32-c6)
