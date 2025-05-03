@@ -49,7 +49,7 @@ There are different modules
 
 Interface used : I²C
 
-![Electronic diagram](Outdoor_module.png)
+![Electronic diagram](Outdoor-module.png)
 
 ### IDE & Librairies
 
