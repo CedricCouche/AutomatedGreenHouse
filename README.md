@@ -21,6 +21,9 @@ Modules will communicate data between them, data will be logged for Machine lear
 
 ## Commponents used for all modules
 
+- ESP32-C6-DevKit C1
+    - System on a Chip (SoC)
+    - [Link to the manufacturer website](https://www.espressif.com/en/products/socs/esp32-c6)
 - BMP280 :
     - Pressure sensor from 300 to 1 100 hPa  
     - Temperature measurement for more accurate results from -40 to + 85 °C
@@ -36,23 +39,33 @@ Modules will communicate data between them, data will be logged for Machine lear
     - Crystal oscillator is temperature compensated (TCXO) for more accurate measures
     - Battery is a common CR2032
     - [Link to the DS3231 Data Sheet](https://www.analog.com/media/en/technical-documentation/data-sheets/ds3231.pdf)
-- BH1750 (to come)
-    - (to come)
+- BH1750
+    - 16-bit Ambient Light sensor from Rohm.
+    - light measurements in lux, with a range from from 0 to 65K+ lux (Even 100,000 lux with calibration & advanced adjustements)
+    - [Link to Adafruit Product page](https://learn.adafruit.com/adafruit-bh1750-ambient-light-sensor/overview)
 - HD38 soil humidity sensor
-    - (to come)
+    - Basic sensor that detect the moisture content of the soil
+    - Can work on analog or digital mode
 - SPI MicroSD card holder + microSD card
-    - (to come)
-- SPI TFT screen 240x320 pixels
-    - (to come)
-- Kamoer Peristatlic water Pump model KPHM100-HBB10-EU
-    - (to come)
+    - SPI Interface
+- TFT LCD screen 240x320 pixels
+    - SPI Interface
+    - [Link to the DS3231 Data Sheet](https://cdn-shop.adafruit.com/datasheets/ILI9341.pdf)
+- Kamoer KPHM100-HBB10-EU
+    - Peristatlic water Pump
+    - Flow rate : 90 ml / min
+    - Power draw (Manufacturer data) : 6w
+    - [Link to the manufacturer website](https://www.kamoer.com/us/product/params.html?id=10021)
 - Peltier modules TEC1 12715
-    - 12-15.4 volts
-    - 
-- Artic P12 120mm fan
-- ESP32-C6-DevKit C1
-    - System on a Chip (SoC)
-    - [Link to the manufacturer website](https://www.espressif.com/en/products/socs/esp32-c6)
+    - 12-15.4 volts, 15 amps (Might be overkill, to be confirmed)
+    - Number of module to be defined (1 to 4)
+- Arctic P12 120mm fan
+    - [Link to Arctic Product page](https://www.arctic.de/en/P12/ACFAN00118A)
+
+
+**Power inputs**
+- All sensors are working on 3.3 volts
+- All actuators are working on 12 volts
 
 
 ## Outdoor Module
@@ -180,7 +193,7 @@ Developed on Arduino IDE 2.3.6
 Librairies required : 
  - for I2C interface : Wire.h
  - for SCD30 : SparkFun_SCD30_Arduino_Library.h
- - for DS3231 : RTClib.h>
+ - for DS3231 : RTClib.h
 
 ### Example of Serial Monitor output
 
@@ -194,11 +207,11 @@ Librairies required :
 
 ### Roadmap for this module
 
-- 4 Channels relais
+- Add 4 Channels relais
     - Water pump
     - Fan
     - Peltiers modules
-- HD38 sensor
+- Add HD38 sensor
 - Add Zigbee or LoRa communication
 
 
@@ -251,7 +264,7 @@ Developed on Arduino IDE 2.3.6
 Librairies required : 
  - for I2C interface : Wire.h
  - for SCD30 : SparkFun_SCD30_Arduino_Library.h
- - for DS3231 : RTClib.h>
+ - for DS3231 : RTClib.h
  - for BH1750 : BH1750.h and Adafruit_Sensor.h
 
 
