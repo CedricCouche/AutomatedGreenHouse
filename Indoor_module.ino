@@ -1,10 +1,8 @@
 /**
- * Outdoor Module - Environmental Monitoring System
+ * Indoor Module - Environmental Monitoring System with RTC
  * 
  * This code reads data from:
- * - BMP280: Temperature, Pressure
  * - SCD30: CO2, Temperature, Humidity
- * - BH1750: Light Intensity
  * - DS3231: Real-time Clock (Date and Time)
  * 
  * Readings are taken every 60 seconds and printed to Serial with timestamp
@@ -12,17 +10,13 @@
  */
 
 // Libraries
-#include <Wire.h> // I2C Interface
+#include <Wire.h> // I2C interface
 #include <Adafruit_Sensor.h>
-#include <Adafruit_BMP280.h> // BMP280
 #include <SparkFun_SCD30_Arduino_Library.h> // SCD30
-#include <BH1750.h> // BH1750
 #include <RTClib.h>  // DS3231
 
 // Sensor objects
-Adafruit_BMP280 bmp;
 SCD30 scd30;
-BH1750 lightMeter;
 RTC_DS3231 rtc; 
 
 // Timing variables
@@ -34,7 +28,6 @@ unsigned long lastMeasurementTime = 0;
 #define SCL_PIN 7  // GPIO7 for SCL
 
 // Measurement status flags
-bool bmpMeasurementSuccess = false;
 bool scd30MeasurementSuccess = false;
 bool bh1750MeasurementSuccess = false;
 bool rtcMeasurementSuccess = false;
@@ -56,7 +49,7 @@ void setup() {
   // Initialize serial communication
   Serial.begin(115200);
   while (!Serial) delay(100); // Wait for serial port to connect
-  Serial.println("Environmental Monitoring System - Outdoor Module");
+  Serial.println("Environmental Monitoring System - Indoor Module");
 
   // Initialize I2C
   Wire.begin(SDA_PIN, SCL_PIN);
@@ -77,19 +70,6 @@ void setup() {
   
   Serial.println("RTC initialized!");
   
-  // Initialize BMP280
-  if (!bmp.begin(0x77)) {
-    Serial.println("Could not find a valid BMP280 sensor, check wiring!");
-    while (1);
-  }
-  Serial.println("BMP280 sensor initialized!");
-  
-  // Configure BMP280 settings
-  bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,     // Operating Mode
-                  Adafruit_BMP280::SAMPLING_X2,      // Temp. oversampling
-                  Adafruit_BMP280::SAMPLING_X16,     // Pressure oversampling
-                  Adafruit_BMP280::FILTER_X16,       // Filtering
-                  Adafruit_BMP280::STANDBY_MS_500);  // Standby time
   
   // Initialize SCD30
   if (!scd30.begin()) {
@@ -105,12 +85,6 @@ void setup() {
   // Start first measurement on SCD30 immediately
   scd30.beginMeasuring();
   
-  // Initialize BH1750
-  if (!lightMeter.begin()) {
-    Serial.println("Could not find BH1750 sensor, check wiring!");
-    while (1);
-  }
-  Serial.println("BH1750 sensor initialized!");
   
   Serial.println("All sensors ready!");
   Serial.println("Taking measurements every 60 seconds...");
@@ -158,30 +132,10 @@ void loop() {
       // Start measure only when SCD30 is available to get all measures synchronized
       if (scd30.dataAvailable()) {
         
-        // Read BMP280 data
-        float bmp_temp = bmp.readTemperature();
-        float pressure = bmp.readPressure() / 100.0F; // Convert Pa to hPa
-        float altitude = bmp.readAltitude(1013.25); // Standard pressure at sea level level (1013.25 hPa)
-
         // Read SCD30 data
         float scd30_co2 = scd30.getCO2();
         float scd30_temp = scd30.getTemperature();
         float scd30_humidity = scd30.getHumidity();
-        
-        // Read BH1750 data
-        float lux = lightMeter.readLightLevel();
-
-        // Print data for BMP280
-        Serial.println("--- BMP280 Data ---");
-        Serial.print("Temperature: ");
-        Serial.print(bmp_temp);
-        Serial.println(" °C");
-        Serial.print("Pressure: ");
-        Serial.print(pressure);
-        Serial.println(" hPa");
-        Serial.print("Approx. Altitude: ");
-        Serial.print(altitude);
-        Serial.println(" m");
         
         // Print data for SCD30
         Serial.println("--- SCD30 Data ---");
@@ -195,12 +149,6 @@ void loop() {
         Serial.print(scd30_humidity);
         Serial.println(" %");
         
-        // Print data for BH1750
-        Serial.println("--- BH1750 Data ---");
-        Serial.print("Light: ");
-        Serial.print(lux);
-        Serial.println(" lux");
-      
         // Get RTC temperature (DS3231 has an internal temperature sensor)
         Serial.println("--- RTC Data ---");
         Serial.print("RTC Temperature: ");

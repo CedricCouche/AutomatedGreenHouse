@@ -1,6 +1,7 @@
 # AutomatedGreenHouse
 
-Automated Green House system
+Automated Green House system.
+Hobby project to practice various technics in electronic and IoT.
 
 
 ## Structure of the project
@@ -10,8 +11,10 @@ There are different modules
  - Indoor module
  - Local module : inside the greenhouse, sensor local values and control actuators (water pump, heater, fan)
 
+Modules will communicate data between them, data will be logged for Machine learning analysis.
 
-## Commponents used
+
+## Commponents used for all modules
 
 - BMP280 :
     - Pressure sensor from 300 to 1 100 hPa  
@@ -29,13 +32,43 @@ There are different modules
     - Battery is a common CR2032
     - [Link to the DS3231 Data Sheet](https://www.analog.com/media/en/technical-documentation/data-sheets/ds3231.pdf)
 - BH1750 (to come)
+    - (to come)
+- HD38 soil humidity sensor
+    - (to come)
+- SPI MicroSD card holder + microSD card
+    - (to come)
+- SPI TFT screen 240x320 pixels
+    - (to come)
+- Kamoer Peristatlic water Pump model KPHM100-HBB10-EU
+    - (to come)
+- Peltier modules TEC1 12715
+    - 12-15.4 volts
+    - 
+- Artic P12 120mm fan
 - ESP32-C6-DevKit C1
     - System on a Chip (SoC)
     - [Link to the manufacturer website](https://www.espressif.com/en/products/socs/esp32-c6)
 
 
-
 ## Outdoor Module
+
+### Roadmap for this module
+
+- Add
+- Add Zigbee or LoRa communication
+- Add a case for outdoor conditions
+
+
+### Functionalities
+
+- Measures are done every minute
+- Measures : 
+    - CO2
+    - Atmospheric pressure
+    - Temperature
+    - Air relative humidity
+    - Light
+- Results are send to Local module using Zigbee or LoRa for data logging
 
 ### Components
 
@@ -44,6 +77,7 @@ There are different modules
 - BMP280
 - BH1750
 - DS3231
+- LoRa module ?
 
 ### Electronic diagram
 
@@ -58,12 +92,12 @@ Developed on Arduino IDE 2.3.6
 Librairies required : 
  - for I2C interface : Wire.h
  - for SCD30 : SparkFun_SCD30_Arduino_Library.h
- - for DS3231 : RTClib.h>
+ - for DS3231 : RTClib.h
  - for BMP280 : Adafruit_BMP280.h
  - for BH1750 : BH1750.h and Adafruit_Sensor.h
 
 
-### Example of output
+### Example of Serial Monitor output
 
 ```
 23:14:03.443 -> ESP-ROM:esp32c6-20220919
@@ -103,9 +137,146 @@ Librairies required :
 
 ## Indoor module 
 
-(to come)
+### Roadmap for this module
+
+- Add SD Card support
+- Add screen support
+- Add Zigbee or LoRa communication
+
+
+### Functionalities
+
+- Measures are done every minute
+- Measures : 
+    - CO2
+    - Temperature
+    - Air Relative humidity
+- Log data in a MicroSD card
+- Display data on a screen
+
+### Components
+
+- ESP32-C6-DevKit C1
+- SCD30
+- DS3231
+- MicroSD card holder + MicroSD card
+- TFT screen 240x320 pixels
+- LoRa module ?
+
+### Electronic diagram
+
+Interface used : I²C and SPI
+
+![Electronic diagram](Outdoor-module.png)
+
+### IDE & Librairies
+
+Developed on Arduino IDE 2.3.6
+
+Librairies required : 
+ - for I2C interface : Wire.h
+ - for SCD30 : SparkFun_SCD30_Arduino_Library.h
+ - for DS3231 : RTClib.h>
+
+### Example of Serial Monitor output
+
+```
+( to come)
+```
 
 
 ## Local module
 
-(to come)
+
+### Roadmap for this module
+
+- 4 Channels relais
+    - Water pump
+    - Fan
+    - Peltiers modules
+- HD38 sensor
+- Add Zigbee or LoRa communication
+
+
+### Functionalities
+
+- Measures are done every minute
+- Sensors : 
+    - Measure CO2
+    - Temperature
+    - Soil humidity
+    - Air relative humidity
+- Actuators :
+    - Water pump
+    - Ventilation
+    - Temperature control
+- Communication:
+    - Zigbee or LoRa communication
+
+
+### Components
+
+- SoC:
+    - ESP32-C6-DevKit C1
+- Sensors :
+    - SCD30
+    - BH1750
+    - HD38
+    - DS3231 GT584
+- Actuators :
+    - 4 Channels relais
+    - Arctic P12 120mm fan
+    - Kamoer Peristatlic water Pump
+    - Peltiers modules (1 to 4, to be defined)
+- Power :
+    - 12 volts power brick
+    - 12 to 3.3 volts converter  
+- Communication:
+    - LoRa module ?
+
+### Electronic diagram
+
+Interface used : I²C
+
+![Electronic diagram](Outdoor-module.png)
+
+### IDE & Librairies
+
+Developed on Arduino IDE 2.3.6
+
+Librairies required : 
+ - for I2C interface : Wire.h
+ - for SCD30 : SparkFun_SCD30_Arduino_Library.h
+ - for DS3231 : RTClib.h>
+ - for BH1750 : BH1750.h and Adafruit_Sensor.h
+
+
+### Example of Serial Monitor output
+
+```
+10:42:28.571 -> rst:0x1 (POWERON),boot:0x7f (SPI_FAST_FLASH_BOOT)
+10:42:28.603 -> SPIWP:0xee
+10:42:28.603 -> mode:DIO, clock div:2
+10:42:28.603 -> load:0x40875720,len:0x1228
+10:42:28.603 -> load:0x4086c110,len:0xd9c
+10:42:28.603 -> load:0x4086e610,len:0x2f74
+10:42:28.603 -> entry 0x4086c110
+10:42:28.668 -> Environmental Monitoring System - Local Module
+10:42:28.668 -> RTC initialized!
+10:42:28.668 -> SCD30 sensor initialized!
+10:42:28.733 -> BH1750 sensor initialized!
+10:42:28.733 -> All sensors ready!
+10:42:28.733 -> Taking measurements every 60 seconds...
+10:42:28.733 -> 
+10:42:28.733 -> ==== New Measurement ====
+10:42:28.733 -> Timestamp: 2025-05-04 10:42:28
+10:42:28.765 -> --- SCD30 Data ---
+10:42:28.765 -> CO2: 1357.00 ppm
+10:42:28.765 -> Temperature: 25.29 °C
+10:42:28.765 -> Humidity: 37.51 %
+10:42:28.765 -> --- BH1750 Data ---
+10:42:28.765 -> Light: 612.50 lux
+10:42:28.765 -> --- RTC Data ---
+10:42:28.765 -> RTC Temperature: 24.25 °C
+10:42:28.765 -> 
+```
