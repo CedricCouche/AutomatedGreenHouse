@@ -6,10 +6,15 @@ Hobby project to practice various technics in electronic and IoT.
 
 ## Structure of the project
 
-There are different modules
- - Outdoor module
- - Indoor module
- - Local module : inside the greenhouse, sensor local values and control actuators (water pump, heater, fan)
+There are different modules :
+ - Outdoor module : measure outdoor conditions, act as a weather station.
+ - Indoor module : inside the building, idealy close to greenhouse.
+    - monitor indoor conditions to compare with local conditions. 
+    - Data logger
+    - Display on a screen.
+ - Local module : inside the greenhouse
+    - Monitor local environnemental condition
+    - Control actuators (water pump, heater, fan) to maintain defined conditions.
 
 Modules will communicate data between them, data will be logged for Machine learning analysis.
 
@@ -54,7 +59,6 @@ Modules will communicate data between them, data will be logged for Machine lear
 
 ### Roadmap for this module
 
-- Add
 - Add Zigbee or LoRa communication
 - Add a case for outdoor conditions
 
@@ -167,7 +171,7 @@ Librairies required :
 
 Interface used : I²C and SPI
 
-![Electronic diagram](Outdoor-module.png)
+![Electronic diagram](Indoor-module.png)
 
 ### IDE & Librairies
 
@@ -238,7 +242,7 @@ Librairies required :
 
 Interface used : I²C
 
-![Electronic diagram](Outdoor-module.png)
+![Electronic diagram](Local-module.png)
 
 ### IDE & Librairies
 
