@@ -19,7 +19,7 @@ There are different modules :
 Wireless communication between module, data will be logged for Machine learning analysis.
 
 
-## Commponents used for all modules
+## Components used for all modules
 
 - ESP32-C6-DevKit C1
     - System on a Chip (SoC)
@@ -201,7 +201,30 @@ Librairies required :
 ### Example of Serial Monitor output
 
 ```
-( to come)
+11:22:04.167 -> ESP-ROM:esp32c6-20220919
+11:22:04.167 -> Build:Sep 19 2022
+11:22:04.167 -> rst:0x1 (POWERON),boot:0x1f (SPI_FAST_FLASH_BOOT)
+11:22:04.198 -> SPIWP:0xee
+11:22:04.198 -> mode:DIO, clock div:2
+11:22:04.198 -> load:0x40875720,len:0x1228
+11:22:04.198 -> load:0x4086c110,len:0xd9c
+11:22:04.198 -> load:0x4086e610,len:0x2f74
+11:22:04.198 -> entry 0x4086c110
+11:22:04.263 -> Environmental Monitoring System - Indoor Module
+11:22:04.263 -> RTC initialized!
+11:22:04.263 -> SCD30 sensor initialized!
+11:22:04.295 -> All sensors ready!
+11:22:04.295 -> Taking measurements every 60 seconds...
+11:22:04.295 -> 
+11:22:04.295 -> ==== New Measurement ====
+11:22:04.295 -> Timestamp: 2025-05-11 11:12:28
+11:22:04.327 -> --- SCD30 Data ---
+11:22:04.327 -> CO2: 580.00 ppm
+11:22:04.327 -> Temperature: 24.79 °C
+11:22:04.327 -> Relative Humidity: 46.51 %
+11:22:04.327 -> --- RTC Data ---
+11:22:04.327 -> RTC Temperature: 22.50 °C
+11:22:04.327 -> 
 ```
 
 
